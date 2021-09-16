@@ -111,7 +111,7 @@ return(
        </table>
        <div style={{display:'flex',justifyContent:'center',marginTop:20}}>
          <div>
-            <button style={{width:310,height:40,outline:'none',border: 0,borderRadius:'0.2em',backgroundColor:'#f1ece7e0'}} onClick={()=>setMoveToNextPage(false)}>ADD MORE ITEMS</button>
+            <button id='deteleButt' style={{width:310,height:40,outline:'none',border: 0,borderRadius:'0.2em',backgroundColor:'#f1ece7e0'}} onClick={()=>setMoveToNextPage(false)}>ADD MORE ITEMS</button>
          </div>
          <div style={{marginLeft:50}}>
             <CSVLink {...csvReport}>EXPORT YOUR ITEMS REPORT</CSVLink>
