@@ -4,6 +4,7 @@ import Login from "../Login";
 import { useState } from "react";
 export default function SignUp(){
     const [nextPage,setNextPage] = useState(false);
+    const [nextPage1,setNextPage1] = useState(false);
     const [fullName,setFullName] = useState('');
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
@@ -34,11 +35,22 @@ return(
                  </div>
                  <br />
                  <div>
-                     <input required type='submit' value='SIGN UP' style={{width:310,height:40,outline:'none',border: 0,borderRadius:'0.2em',backgroundColor:'#f1ece7e0'}} onClick = {()=>setNextPage(true)}/>
+                     <input required type='submit' value='SIGN UP' style={{width:310,height:40,outline:'none',border: 0,borderRadius:'0.2em',backgroundColor:'#f1ece7e0'}} onClick = {()=>{
+                         setNextPage(true)
+                         setNextPage1(true)
+                         }}/>
                  </div>
              </div>
              </div>
         </div>
+    }
+    {
+        nextPage1 ? 
+       <></>
+    :
+    <div>
+    <h2 style={{position:'absolute',color:'white',top:'590px'}}>Page<span>1</span></h2>
+    </div>
     }
     </div>
 )

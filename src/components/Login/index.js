@@ -9,11 +9,15 @@ export default function Login(props){
    const [item,setItem] = useState('');
    const [price,setPrice] = useState('');
    const [allItems,setAllItems] = useState([]);
-   const [index,setIndex] = useState(1)
+   const [allPrice,setAllPrice] = useState([]);
+   const [index,setIndex] = useState(0)
    const [date,setDate] = useState()
 
    const [error,setError] = useState('')
    const [moveToNextPage,setMoveToNextPage] = useState(false)
+   const [moveToNextPage1,setMoveToNextPage1] = useState(false)
+   const [moveToNextPage2,setMoveToNextPage2] = useState(false)
+   const [moveToNextPage3,setMoveToNextPage3] = useState(false)
    const [userDetails,setUserDetails] = useState()
 
     const [nextPage,setNextPage] = useState(false);
@@ -37,19 +41,47 @@ export default function Login(props){
           setNextPage(false)
           console.log('nno')
         }
+        setMoveToNextPage1(true)
     }
 
     const logout = () =>{
             setNextPage(false)
+            setMoveToNextPage1(false)
            }
 
       const addItem = () =>{
 
          const tempItem = [...allItems]
+        //  const tempPrice = [...allPrice]
          tempItem.push({item,price,index,today})
-         setAllItems(tempItem)
+        // tempItem.push({item,price})
+        tempItem.sort(function(a, b) {
+          var nameA = a.item.toUpperCase(); 
+          var nameB = b.item.toUpperCase(); 
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          // names must be equal
+          return 0;
+        });
+        
+        // tempItem.sort( compare );
+        // tempPrice.push(price)
+        // tempItem.sort((a, b) =>
+        // a.localeCompare(b)
+        // );
+        //  tempPrice.sort((a, b) =>
+        //  a.localeCompare(b)
+        //   );
+        setAllItems(tempItem)
+        // tempPrice.push(price)
+        //  setAllPrice(tempPrice)
          console.log(tempItem)
-         setIndex(index+1)
+        //  console.log(tempPrice)
+         setIndex((index+1))
          setItem('')
          setPrice('')
        }
@@ -91,7 +123,7 @@ return(
            return(
              <>
              <tr>
-               <td>{value.index}</td>
+               <td>{i+1}</td>
             
                <td>{value.item}</td>
           
@@ -111,12 +143,23 @@ return(
        </table>
        <div style={{display:'flex',justifyContent:'center',marginTop:20}}>
          <div>
-            <button id='deteleButt' style={{width:310,height:40,outline:'none',border: 0,borderRadius:'0.2em',backgroundColor:'#f1ece7e0'}} onClick={()=>setMoveToNextPage(false)}>ADD MORE ITEMS</button>
+            <button id='deteleButt' style={{width:310,height:40,outline:'none',border: 0,borderRadius:'0.2em',backgroundColor:'#f1ece7e0'}} onClick={()=>{
+              setMoveToNextPage(false)
+              setMoveToNextPage2(false)
+              }}>ADD MORE ITEMS</button>
          </div>
          <div style={{marginLeft:50}}>
             <CSVLink {...csvReport}>EXPORT YOUR ITEMS REPORT</CSVLink>
          </div>
         </div>
+        {
+        moveToNextPage3 ? 
+       <></>
+    :
+    <div>
+    <h2 style={{position:'absolute',color:'white',top:'590px'}}>Page<span>4</span></h2>
+    </div>
+    }
 
      </div>
 :
@@ -137,16 +180,29 @@ return(
                  <input required type='text' placeholder='Enter Your Item' style={{width:300,height:40,outlineStyle:'none',opacity:0.9}} onChange={(e)=>setItem(e.target.value)} value={item}/>
                    </div>
                    <div><br />
-                 <input required type='number' placeholder='Enter Your Price'  style={{width:300,height:40,outlineStyle:'none',opacity:0.9}} onChange={(e)=>setPrice(e.target.value)} value={price}/>
+                 <input required type='text' placeholder='Enter Your Price'  style={{width:300,height:40,outlineStyle:'none',opacity:0.9}} onChange={(e)=>setPrice(e.target.value)} value={price}/>
                    </div><br />
                    <div>
                      <input type="submit" style={{width:310,height:40,outlineStyle:'none',borderRadius:'.3em',outline:'none',borderColor:'#ffffff00'}} value='ADD ITEM' onClick={()=>addItem()} id='butt' />
                    </div><br />
                    <div>
-                     <button style={{width:310,height:40,outlineStyle:'none',borderRadius:'.3em',outline:'none',borderColor:'#ffffff00'}} onClick={()=>setMoveToNextPage(true)} id='butt'>ITEM DETAILS</button>
+                     <button style={{width:310,height:40,outlineStyle:'none',borderRadius:'.3em',outline:'none',borderColor:'#ffffff00'}} onClick={()=>{
+                       setMoveToNextPage(true)
+                       setMoveToNextPage2(true)
+                       setMoveToNextPage3(false)
+                       }} id='butt'>ITEM DETAILS</button>
                    </div>
                  </div>
                  </div>
+                 {
+        moveToNextPage2 ? 
+       <></>
+    :
+    <div>
+    <h2 style={{position:'absolute',color:'white',top:'590px',left:'1px'}}>Page<span>3</span></h2>
+    </div>
+    }
+
                </div>
                </>
             :
@@ -171,6 +227,14 @@ return(
                  </div>
              </form>
              </div>
+             {
+        moveToNextPage1 ? 
+       <></>
+    :
+    <div>
+    <h2 style={{position:'absolute',color:'white',top:'590px',left:'1px'}}>Page<span>2</span></h2>
+    </div>
+    }
         </div>
 
 
